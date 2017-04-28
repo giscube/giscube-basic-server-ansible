@@ -8,10 +8,15 @@ apt:
 # The name of ssh daemon
 sshd: ssh
 
+# The name of npt daemon
+nptd: ntp.service
+
 # Where is ssh config is located at
 sshd_config: /etc/ssh/sshd_config
 
 disable_ssh_password: no
+
+
 
 firewall_enable: yes
 firewall_enable_tomcat: no
@@ -23,3 +28,15 @@ apt_update_cache: yes
 # cache valid for 1 day
 apt_cache_valid_time: 86400
 apt_mirror: 'us'
+
+ntp_enable: no
+
+ntp_area: ''
+ntp_servers:
+  - "0{{ ntp_area }}.pool.ntp.org iburst"
+  - "1{{ ntp_area }}.pool.ntp.org iburst"
+  - "2{{ ntp_area }}.pool.ntp.org iburst"
+  - "3{{ ntp_area }}.pool.ntp.org iburst"
+
+set_timezone: no
+timezone_zone: Europe/Madrid

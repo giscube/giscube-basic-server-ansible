@@ -1,0 +1,14 @@
+---
+
+- name: Install ntp
+  package: name=ntp state=present
+
+- name: Ensure ntp is running and enabled
+  service:
+    name: "{{ nptd }}"
+    state: started
+    enabled: yes
+
+- name: Generate ntp.conf file
+  template: src=etc/ntp.conf.j2 dest=/etc/ntp.conf
+  notify: restart nptd

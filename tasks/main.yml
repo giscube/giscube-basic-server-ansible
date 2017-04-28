@@ -22,6 +22,9 @@
 
 - include: critical_packages_last_version.yml
 
+- include: timezone.yml
+  when: set_timezone
+
 - include: locale.yml
 
 - include: firewall.yml
@@ -39,7 +42,8 @@
   tags: packages
 
 
-
+- include: ntp.yml
+  when: ntp_enable
 
 
 
