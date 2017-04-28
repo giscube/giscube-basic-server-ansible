@@ -13,6 +13,7 @@ sshd_config: /etc/ssh/sshd_config
 
 disable_ssh_password: no
 
+firewall_enable: yes
 firewall_enable_tomcat: no
 
 locale_lang: en_US.UTF-8
