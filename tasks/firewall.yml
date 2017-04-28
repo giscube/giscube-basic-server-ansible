@@ -1,0 +1,18 @@
+- name: Install ufw
+  apt: name=ufw
+
+- name: Allow ssh through firewall
+  ufw: proto=tcp port=22 rule=allow
+
+- name: Allow nginx firewall
+  ufw: proto=tcp port=80 rule=allow
+
+- name: Allow tomcat firewall
+  ufw: proto=tcp port=8080 rule=allow
+  when: firewall_enable_tomcat
+
+- name: Allow from longview.linode.com
+  command: ufw allow from 96.126.119.66
+
+- name: Set ufw policy
+  ufw: state=enabled direction=incoming policy=deny

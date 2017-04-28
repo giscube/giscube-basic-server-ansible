@@ -1,0 +1,13 @@
+---
+
+- name: Generate default locale
+  locale_gen: name="{{ locale_lc_all }}" state=present
+
+- name: Set default locale
+  template:
+        backup=yes
+        src=etc/default/locale.j2
+        dest=/etc/default/locale
+        owner=root
+        group=root
+        mode=0644

@@ -1,0 +1,8 @@
+---
+
+- name: Ensure system packages are up to date
+  apt:
+    upgrade=safe
+    update_cache={{ apt.update_cache }}
+    cache_valid_time={{ apt.cache_valid_time }}
+  tags: packages

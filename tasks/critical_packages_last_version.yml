@@ -1,0 +1,16 @@
+---
+
+- name: Ensure bash, OpenSSl, and libssl are the latest versions
+  apt: name={{ item }} state=latest
+  with_items:
+    - bash
+    - openssl
+    - libssl-dev
+    - libssl-doc
+  tags: packages
+
+- name: Ensure security updates are applied automatically
+  apt: name={{ item }} state=latest
+  with_items:
+    - unattended-upgrades
+  tags: packages

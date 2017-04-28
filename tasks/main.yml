@@ -1,0 +1,64 @@
+---
+
+# from https://github.com/vitalk/ansible-secure-ssh
+- name: Disable password login
+  lineinfile: dest={{ sshd_config }} regexp="^#?PasswordAuthentication" line="PasswordAuthentication no"
+  notify: restart sshd
+  when: disable_ssh_password
+
+- meta: flush_handlers
+
+- name: APT sources.list
+  template:
+        backup=yes
+        src=etc/apt/sources.list.j2
+        dest=/etc/apt/sources.list
+        owner=root
+        group=root
+        mode=0644
+  tags: packages
+
+- include: packages_up_to_date.yml
+
+- include: critical_packages_last_version.yml
+
+- include: locale.yml
+
+- name: basic utilities. htop, git, joe, fail2ban,..
+  apt: name={{ item }} state=latest
+  with_items:
+    - htop
+    - git
+    - joe
+    - fail2ban
+    - vim
+    - rpl
+  tags: packages
+
+
+
+
+
+
+
+
+
+
+#########################
+
+
+- include: packages_up_to_date.yml
+- include: critical_packages_last_version.yml
+
+- name: basic utilities. htop, git, joe, fail2ban,..
+  apt: name={{ item }} state=latest
+  with_items:
+    - htop
+    - joe
+    - vim
+    - rpl
+    - fail2ban
+    - git
+    - python-pip
+    - python-dev
+  tags: packages
